@@ -1,2 +1,2 @@
-# unit1-project-techdegree
+# Unit 1 Project - Techdegree
  Random Quote Generator
