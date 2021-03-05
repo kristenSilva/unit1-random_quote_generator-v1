@@ -13,34 +13,39 @@ project 1 - A Random Quote Generator
     * source - string - person/character who said it
     * citation - string - reference to source (book, tv, etc)
     * year - int - year published/originated
+    * tag - string - mood of quote (humor, inspirational, etc)
 ***/
-
 let quotes = [
   {
     quote: "I'm not superstitious, but I am a little stitious",
     source: 'Michael Scott (Steve Carrell)',
-    citation: 'The Office'
+    citation: 'The Office',
+    tag: 'Funny'
   },
   {
     quote: "I would know him in death, at the end of the world.",
     source: 'Madeline Miller',
     citation: 'The Song of Achilles',
-    year: 2011
+    year: 2011,
+    tag: 'Love'
   },
   {
     quote: "Si el corazón pensara dejaría de latir.",
     source: 'Alberto Méndez',
     citation: 'Los girasoles ciegos',
-    year: 2008
+    year: 2008,
+    tag: 'Amor'
   },
   {
     quote: "I can accept failure, everyone fails at something. But I can't accept not trying.",
-    source: 'Michael Jordan'
+    source: 'Michael Jordan',
+    tag: 'Inspirational'
   },
   {
-    quote: "I have asked you THRICE...",
-    source: 'David Rose (Daniel Levy)',
-    citation: "Schitt's Creek"
+    quote: "Entre los individuos, como entre las naciones, el respeto al derecho ajeno es la paz.",
+    source: 'Benito Juárez',
+    year: 1867,
+    tag: 'Politics'
   }
 ];
 
@@ -67,8 +72,8 @@ function printQuote () {
   let displayQuote = getRandomQuote();
   let htmlString = '';
   htmlString += `
-    <p class="quote"> ${displayQuote.quote} </p>
-    <p class="source"> ${displayQuote.source} 
+    <p class="quote">${displayQuote.quote}</p>
+    <p class="source">${displayQuote.source} 
     `;
   if(displayQuote.citation) {
     htmlString += `<span class="citation">${displayQuote.citation}</span>`;
@@ -76,15 +81,40 @@ function printQuote () {
   if(displayQuote.year) {
     htmlString += `<span class="year">${displayQuote.year}</span>`;
   }
+  if(displayQuote.tag) {
+    htmlString += `<span class="tag">${displayQuote.tag}</span>`;
+  }
   htmlString += `</p>`;
+  document.body.style.backgroundColor = colorGrab();
   document.getElementById('quote-box').innerHTML = htmlString; 
 }
 
+/***
+ * `randomValue` function
+ * generates random number
+ ***/
+function randomValue (){
+  return Math.floor(Math.random()*256);
+}
 
+/***
+ * `colorGrab` function
+ * generates an RGB string w/ new background color
+ ***/
+function colorGrab (){
+  let color = `rgb( ${randomValue()}, ${randomValue()}, ${randomValue()} )`;
+  return color;
+}
 
 /***
  * click event listener for the print quote button
  * DO NOT CHANGE THE CODE BELOW!!
+ * Calls the `printQuote` function when button is clicked
 ***/
 
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
+
+/***
+ * Auto refresh quotes every 20 seconds
+ ***/
+setInterval(printQuote,20000)
